@@ -1,6 +1,8 @@
 import Head from 'next/head'
 
 export default function Home() {
+  const _codeVersion = require('../package.json').version;
+
   return (
     <div className="container">
       <Head>
@@ -10,7 +12,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Hi Suhardi! Welcome to <a href="https://nextjs.org">Next.js! v{_codeVersion}</a>
         </h1>
 
         <p className="description">
