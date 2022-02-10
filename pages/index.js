@@ -12,7 +12,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          Hi Suhardi! Welcome to <a href="https://nextjs.org">Next.js! minor v{_codeVersion}</a>
+          Hi Suhardi! Welcome to <a href="https://nextjs.org">Next.js! re-bump v{_codeVersion}</a>
         </h1>
 
         <p className="description">
