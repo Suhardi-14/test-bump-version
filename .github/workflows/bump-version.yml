@@ -1,0 +1,39 @@
+# This workflow will automatically bump the version in package.json
+# upon merging of a pull request on master and pushes the change back.
+# The version bump commit message is marked with prefix '[RELEASE]'
+# which will be used to trigger the deploy workflow. For more info
+# refer here: https://github.com/phips28/gh-action-bump-version
+
+name: 'Bump Version'
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  bump-version:
+    name: 'Bump Version on main'
+    runs-on: ubuntu-latest
+
+    if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+
+    steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+      - name: 'cat package.json'
+        run: cat ./package.json
+      - name: 'Automated Version Bump'
+        uses: 'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          minor-wording: '[MINOR],[Minor],[minor]'
+          major-wording: '[MAJOR],[Major],[major]'
+          tag-prefix: 'v'
+          commit-message: '[RELEASE] version {{version}}'
+      - name: cat package.json
+        run: cat ./package.json
+      - name: Output Step
+        env:
+          NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+        run: echo "new tag $NEW_TAG"
